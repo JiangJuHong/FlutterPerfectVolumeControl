@@ -11,6 +11,8 @@
 Flutter
 音量控制插件，支持Android和IOS，拥有：显示隐藏音量图标，音量变化监控，设置音量，获取设备当前音量。
 
+<img src="https://github.com/JiangJuHong/access-images/blob/master/FlutterPerfectVolumeControl/1.png" height="300em" style="max-width:100%;display: inline-block;"/>
+
 # 链接
 
 * [Document](https://pub.dev/documentation/perfect_volume_control/latest/perfect_volume_control/PerfectVolumeControl-class.html)
@@ -27,17 +29,20 @@ PerfectVolumeControl.volume;
 ````
 
 ## 设置音量
+
 ````dart
 PerfectVolumeControl.setVolume(0.3);
 ````
 
 ## 隐藏/显示 UI
+
 ````dart
 PerfectVolumeControl.hideUI = true;
 PerfectVolumeControl.hideUI = false;
 ````
 
 ## 音量变化监听
+
 ````dart
 PerfectVolumeControl.stream.listen((volume) {
   print(volume);
