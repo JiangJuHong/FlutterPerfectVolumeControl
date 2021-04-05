@@ -67,10 +67,8 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         }
 
         // 异步设置
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-            slider!.value = (Float)(volume);
-            result(nil);
-        }
+        slider!.value = (Float)(volume);
+        result(nil);
     }
 
     /// 隐藏UI

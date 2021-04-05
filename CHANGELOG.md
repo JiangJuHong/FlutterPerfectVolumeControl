@@ -1,3 +1,6 @@
+## 1.0.2
+* close ios Asynchronous volume setting
+
 ## 1.0.1
 * styles code
 
