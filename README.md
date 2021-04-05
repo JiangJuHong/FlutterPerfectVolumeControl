@@ -13,7 +13,8 @@
 
 Flutter volume control plug-in, supports Android and IOS, has: Show
 hidden volume icon, volume change monitoring, set volume, get the
-current volume of the device.
+current volume of the device.  
+Please use real machine test, some functions do not support emulator.
 
 <img src="https://github.com/JiangJuHong/access-images/blob/master/FlutterPerfectVolumeControl/1.png" height="300em" style="max-width:100%;display: inline-block;"/>
 
