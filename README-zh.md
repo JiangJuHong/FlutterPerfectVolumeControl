@@ -6,48 +6,48 @@
 
 </div>
 
-# What is FlutterPerfectVolumeControl ?
+# 什么是 FlutterPerfectVolumeControl ?
 
 Flutter
-Flutter volume control plug-in, supports Android and IOS, has: Show hidden volume icon, volume change monitoring, set volume, get the current volume of the device.
+音量控制插件，支持Android和IOS，拥有：显示隐藏音量图标，音量变化监控，设置音量，获取设备当前音量。
 
-# Link
+# 链接
 
 * [Document](https://pub.dev/documentation/perfect_volume_control/latest/perfect_volume_control/PerfectVolumeControl-class.html)
 * [Chat](https://jq.qq.com/?_wv=1027&k=QxCWMlUf)
 * [Sponsor](https://www.yuque.com/jiangjuhong/tencent-im-flutter/ygi582)
 
-# Use
+# 使用
 
-## Get device volume
+## 获得音量
 
 ```dart
 PerfectVolumeControl.getVolume();
 PerfectVolumeControl.volume;
 ````
 
-## Set device volume
+## 设置音量
 ````dart
 PerfectVolumeControl.setVolume(0.3);
 ````
 
-## Hide volume UI
+## 隐藏/显示 UI
 ````dart
 PerfectVolumeControl.hideUI = true;
 PerfectVolumeControl.hideUI = false;
 ````
 
-## Volume change subscription
+## 音量变化监听
 ````dart
 PerfectVolumeControl.stream.listen((volume) {
   print(volume);
 });
 ````
 
-# Other Plugins
+# 其它插件
 
 ````
-I also maintain the following plug-ins. If you are interested in maintaining with me, please contact me through GitHub. Welcome issues and PR.
+我同时维护的还有以下插件，如果您感兴趣与我一起进行维护，请通过Github联系我，欢迎 issues 和 PR。
 ````
 
 | 平台     | 插件                                                                                      | 描述                      | 版本                                                                                                                                 |
