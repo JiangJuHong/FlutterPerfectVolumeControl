@@ -6,10 +6,16 @@
 
 </div>
 
+[\[中文文档\]](https://github.com/JiangJuHong/FlutterPerfectVolumeControl/blob/master/README-zh.md)
+[\[English Docs\]](https://github.com/JiangJuHong/FlutterPerfectVolumeControl/blob/master/README.md)
+
 # What is FlutterPerfectVolumeControl ?
 
-Flutter
-Flutter volume control plug-in, supports Android and IOS, has: Show hidden volume icon, volume change monitoring, set volume, get the current volume of the device.
+Flutter volume control plug-in, supports Android and IOS, has: Show
+hidden volume icon, volume change monitoring, set volume, get the
+current volume of the device.
+
+<img src="https://github.com/JiangJuHong/access-images/blob/master/FlutterPerfectVolumeControl/1.png" height="300em" style="max-width:100%;display: inline-block;"/>
 
 # Link
 
@@ -27,17 +33,20 @@ PerfectVolumeControl.volume;
 ````
 
 ## Set device volume
+
 ````dart
 PerfectVolumeControl.setVolume(0.3);
 ````
 
 ## Hide volume UI
+
 ````dart
 PerfectVolumeControl.hideUI = true;
 PerfectVolumeControl.hideUI = false;
 ````
 
 ## Volume change subscription
+
 ````dart
 PerfectVolumeControl.stream.listen((volume) {
   print(volume);
