@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 
@@ -13,9 +15,24 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   TextEditingController _textEditingController = TextEditingController();
 
+  StreamSubscription<double> _subscription;
+
   @override
   void initState() {
     super.initState();
+    // Bind listener
+    _subscription = PerfectVolumeControl.stream.listen((value) {
+      print("1:$value");
+      _textEditingController.text = "listener: $value";
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    // Remove listener
+    _subscription.cancel();
   }
 
   @override

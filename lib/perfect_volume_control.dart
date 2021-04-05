@@ -6,6 +6,30 @@ import 'package:flutter/services.dart';
 class PerfectVolumeControl {
   static const MethodChannel _channel = const MethodChannel('perfect_volume_control');
 
+  /// 音量改变监听器流
+  /// Volume change monitor flow
+  static StreamController<double> _streamController = StreamController.broadcast();
+
+  /// 音量改变监听器名称
+  /// Volume change monitor name
+  static const String _volumeChangeListenerName = "volumeChangeListener";
+
+  /// 方法调用处理
+  /// method invoke handler
+  static Future<dynamic> _methodCallHandler(call) async {
+    if (call.method == _volumeChangeListenerName) {
+      double volume = call.arguments;
+      _streamController.add(volume);
+    }
+  }
+
+  /// 获得监听器流
+  /// Get listener stream
+  static Stream<double> get stream {
+    _channel.setMethodCallHandler(_methodCallHandler);
+    return _streamController.stream;
+  }
+
   /// 根据[hide]隐藏或显示
   /// Hide or show according to [hide]
   static set hideUI(bool hide) {

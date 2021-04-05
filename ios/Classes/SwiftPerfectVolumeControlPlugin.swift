@@ -6,10 +6,21 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
     /// 音量视图
     let volumeView = MPVolumeView();
 
+    /// Flutter 消息通道
+    var channel: FlutterMethodChannel?;
+
+    override init() {
+        super.init();
+
+        // 绑定音量监听器
+        NotificationCenter.default.addObserver(self, selector: #selector(self.volumeChangeListener), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+        UIApplication.shared.beginReceivingRemoteControlEvents();
+    }
+
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "perfect_volume_control", binaryMessenger: registrar.messenger())
         let instance = SwiftPerfectVolumeControlPlugin()
-        registrar.addMethodCallDelegate(instance, channel: channel)
+        instance.channel = FlutterMethodChannel(name: "perfect_volume_control", binaryMessenger: registrar.messenger())
+        registrar.addMethodCallDelegate(instance, channel: instance.channel!)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -26,6 +37,7 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         default:
             result(FlutterMethodNotImplemented);
         }
+
     }
 
     /// 获得系统当前音量
@@ -72,5 +84,24 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
             volumeView.removeFromSuperview();
         }
         result(nil);
+    }
+
+    /// 绑定监听器
+    public func bindListener(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch let error as NSError {
+            print("\(error)")
+        }
+
+        // 绑定音量监听器
+        NotificationCenter.default.addObserver(self, selector: #selector(self.volumeChangeListener), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+        UIApplication.shared.beginReceivingRemoteControlEvents();
+    }
+
+    /// 音量监听
+    @objc func volumeChangeListener(notification: NSNotification) {
+        let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as! Float
+        channel?.invokeMethod("volumeChangeListener", arguments: volume)
     }
 }
