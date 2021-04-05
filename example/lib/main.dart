@@ -71,7 +71,8 @@ class _MyAppState extends State<MyApp> {
                       OutlinedButton(
                         child: Text("getVolume"),
                         onPressed: () async {
-                          double volume = await PerfectVolumeControl.getVolume();
+                          double volume =
+                              await PerfectVolumeControl.getVolume();
                           _textEditingController.text = "$volume";
                         },
                       ),
@@ -86,7 +87,8 @@ class _MyAppState extends State<MyApp> {
                         child: Text("setVolume to 0.3"),
                         onPressed: () async {
                           await PerfectVolumeControl.setVolume(0.3);
-                          _textEditingController.text = "setVolume to 0.3 finish";
+                          _textEditingController.text =
+                              "setVolume to 0.3 finish";
                         },
                       ),
                     ],

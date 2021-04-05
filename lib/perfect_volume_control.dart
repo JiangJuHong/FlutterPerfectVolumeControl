@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class PerfectVolumeControl {
-  static const MethodChannel _channel = const MethodChannel('perfect_volume_control');
+  static const MethodChannel _channel =
+      const MethodChannel('perfect_volume_control');
 
   /// 音量改变监听器流
   /// Volume change monitor flow
-  static StreamController<double> _streamController = StreamController.broadcast();
+  static StreamController<double> _streamController =
+      StreamController.broadcast();
 
   /// 音量改变监听器名称
   /// Volume change monitor name
