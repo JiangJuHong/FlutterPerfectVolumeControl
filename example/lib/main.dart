@@ -22,7 +22,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     // Bind listener
     _subscription = PerfectVolumeControl.stream.listen((value) {
-      print("1:$value");
       _textEditingController.text = "listener: $value";
     });
   }
