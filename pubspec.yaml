@@ -1,6 +1,6 @@
 name: perfect_volume_control
 description: "Flutter volume control plug-in, supports Android and IOS, has: Show hidden volume icon, volume change monitoring, set volume, get the current volume of the device."
-version: 1.0.2
+version: 1.0.3
 author: https://www.huic.top
 homepage: https://github.com/JiangJuHong/FlutterPerfectVolumeControl
 

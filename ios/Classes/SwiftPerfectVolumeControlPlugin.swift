@@ -76,7 +76,8 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         let hide = ((call.arguments as! [String: Any])["hide"]) as! Bool;
         if hide {
             volumeView.isHidden = false;
-            volumeView.frame(forAlignmentRect: CGRect(x: -100, y: -100, width: 40, height: 40));
+            volumeView.frame(forAlignmentRect: CGRect.zero);
+            volumeView.showsRouteButton = false
             UIApplication.shared.delegate!.window!?.rootViewController!.view.addSubview(volumeView);
         } else {
             volumeView.removeFromSuperview();
