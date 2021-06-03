@@ -67,7 +67,7 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         }
 
         // 异步设置
-        slider!.value = (Float)(volume);
+        slider!.setValue((Float)(volume), animated: false)
         result(nil);
     }
 
@@ -75,8 +75,7 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
     public func hideUI(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let hide = ((call.arguments as! [String: Any])["hide"]) as! Bool;
         if hide {
-            volumeView.isHidden = false;
-            volumeView.frame(forAlignmentRect: CGRect.zero);
+            volumeView.frame = CGRect(x: -1000, y: -1000, width: 1, height: 1)
             volumeView.showsRouteButton = false
             UIApplication.shared.delegate!.window!?.rootViewController!.view.addSubview(volumeView);
         } else {
