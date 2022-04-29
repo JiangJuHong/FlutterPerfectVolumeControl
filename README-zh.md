@@ -10,7 +10,9 @@
 
 Flutter
 音量控制插件，支持Android和IOS，拥有：显示隐藏音量图标，音量变化监控，设置音量，获取设备当前音量。  
-请使用真机测试，部分功能不支持模拟器。
+
+  
+**请使用真机测试，部分功能不支持模拟器。**
 
 <img src="https://github.com/JiangJuHong/access-images/blob/master/FlutterPerfectVolumeControl/1.png" height="300em" style="max-width:100%;display: inline-block;"/>
 
