@@ -54,6 +54,10 @@ PerfectVolumeControl.stream.listen((volume) {
   print(volume);
 });
 ````
+````dart
+PerfectVolumeControl.active = true;
+PerfectVolumeControl.active = false;
+````
 
 # Other Plugins
 

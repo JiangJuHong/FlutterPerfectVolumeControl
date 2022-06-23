@@ -32,6 +32,9 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         case "hideUI":
             self.hideUI(call, result: result);
             break;
+        case "setActive":
+            self.setActive(call, result: result);
+            break;
         default:
             result(FlutterMethodNotImplemented);
         }
@@ -41,7 +44,7 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
     /// 获得系统当前音量
     public func getVolume(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         do {
-            try AVAudioSession.sharedInstance().setActive(true)
+//             try AVAudioSession.sharedInstance().setActive(true)
             result(AVAudioSession.sharedInstance().outputVolume);
         } catch let error as NSError {
             result(FlutterError(code: String(error.code), message: "\(error.localizedDescription)", details: "\(error.localizedDescription)"));
@@ -82,10 +85,20 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         result(nil);
     }
 
+    /// 设置active，音频焦点与混音等状态
+    public func setActive(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        do{
+            let active = ((call.arguments as! [String: Any])["active"]) as! Bool;
+            try AVAudioSession.sharedInstance().setActive(active)
+        }catch let error as NSError{
+            print("\(error)")
+        }
+    }
+
     /// 绑定监听器
     public func bindListener() {
         do {
-            try AVAudioSession.sharedInstance().setActive(true)
+//             try AVAudioSession.sharedInstance().setActive(false)
             AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: [.new, .old], context: nil)
         } catch let error as NSError {
             print("\(error)")
@@ -94,7 +107,7 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         // 绑定音量监听器
         NotificationCenter.default.addObserver(self, selector: #selector(self.volumeChangeListener), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
         UIApplication.shared.beginReceivingRemoteControlEvents();
-        
+
     }
 
     /// 音量监听
@@ -102,7 +115,7 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as! Float
         channel?.invokeMethod("volumeChangeListener", arguments: volume)
     }
-    
+
     /// 音量监听(KVO方式)
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         let volume = AVAudioSession.sharedInstance().outputVolume
