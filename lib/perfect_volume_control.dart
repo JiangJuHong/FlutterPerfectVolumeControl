@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 
 class PerfectVolumeControl {
   static const MethodChannel _channel =
-      const MethodChannel('perfect_volume_control');
+  const MethodChannel('perfect_volume_control');
 
   /// 音量改变监听器流
   /// Volume change monitor flow
   static StreamController<double> _streamController =
-      StreamController.broadcast();
+  StreamController.broadcast();
 
   /// 音量改变监听器名称
   /// Volume change monitor name
@@ -52,5 +52,11 @@ class PerfectVolumeControl {
   static Future<void> setVolume(double volume) async {
     assert(volume >= 0 && volume <= 1);
     return await _channel.invokeMethod('setVolume', {"volume": volume});
+  }
+
+  /// 设置[active]模式 默认 false 不占用音频焦点 当设置为 true，会暂停其他音频
+  /// Set active mode Default false Does not occupy audio focus When set to true, other audio is paused
+  static set setActive(bool active) {
+    _channel.invokeMethod('setActive', {"active": active});
   }
 }

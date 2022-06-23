@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
                         child: Text("getVolume"),
                         onPressed: () async {
                           double volume =
-                              await PerfectVolumeControl.getVolume();
+                          await PerfectVolumeControl.getVolume();
                           _textEditingController.text = "$volume";
                         },
                       ),
@@ -88,7 +88,21 @@ class _MyAppState extends State<MyApp> {
                         onPressed: () async {
                           await PerfectVolumeControl.setVolume(0.3);
                           _textEditingController.text =
-                              "setVolume to 0.3 finish";
+                          "setVolume to 0.3 finish";
+                        },
+                      ),
+                      OutlinedButton(
+                        child: Text("setActive true 获取音频焦点"),
+                        onPressed: () async {
+                          PerfectVolumeControl.setActive = true;
+                          _textEditingController.text = "setActive true";
+                        },
+                      ),
+                      OutlinedButton(
+                        child: Text("setActive false 放弃音频焦点"),
+                        onPressed: () async {
+                          PerfectVolumeControl.setActive = false;
+                          _textEditingController.text = "setActive false";
                         },
                       ),
                     ],
