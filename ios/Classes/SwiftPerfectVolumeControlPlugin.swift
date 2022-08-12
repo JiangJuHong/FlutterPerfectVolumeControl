@@ -9,6 +9,8 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
 
     /// Flutter 消息通道
     var channel: FlutterMethodChannel?;
+    
+    var hasBindListener = false
 
     override init() {
         super.init();
@@ -17,8 +19,16 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = SwiftPerfectVolumeControlPlugin()
         instance.channel = FlutterMethodChannel(name: "perfect_volume_control", binaryMessenger: registrar.messenger())
-        instance.bindListener()
         registrar.addMethodCallDelegate(instance, channel: instance.channel!)
+        registrar.addApplicationDelegate(instance)
+    }
+    
+    public func applicationDidBecomeActive(_ application: UIApplication) {
+        bindListener();
+    }
+    
+    public func applicationWillResignActive(_ application: UIApplication) {
+        unbindListener();
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -81,9 +91,19 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         }
         result(nil);
     }
+    
+    
 
     /// 绑定监听器
     public func bindListener() {
+        
+        
+        if(hasBindListener){
+            return
+        }
+        
+        hasBindListener = true;
+        
         do {
             try AVAudioSession.sharedInstance().setActive(true)
             AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: [.new, .old], context: nil)
@@ -94,6 +114,23 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         // 绑定音量监听器
         NotificationCenter.default.addObserver(self, selector: #selector(self.volumeChangeListener), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
         UIApplication.shared.beginReceivingRemoteControlEvents();
+    }
+    
+    /// 绑定监听器
+    public func unbindListener() {
+        if(!hasBindListener){
+            return
+        }
+        hasBindListener = false;
+        do {
+            try AVAudioSession.sharedInstance().setActive(false)
+            AVAudioSession.sharedInstance().removeObserver(self, forKeyPath: "outputVolume", context: nil)
+        } catch  {
+            
+        }
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+        UIApplication.shared.endReceivingRemoteControlEvents();
         
     }
 
