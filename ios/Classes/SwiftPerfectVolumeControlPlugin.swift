@@ -19,7 +19,6 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = SwiftPerfectVolumeControlPlugin()
         instance.channel = FlutterMethodChannel(name: "perfect_volume_control", binaryMessenger: registrar.messenger())
-        instance.bindListener()
         registrar.addMethodCallDelegate(instance, channel: instance.channel!)
         registrar.addApplicationDelegate(instance)
     }
@@ -126,8 +125,8 @@ public class SwiftPerfectVolumeControlPlugin: NSObject, FlutterPlugin {
         do {
             try AVAudioSession.sharedInstance().setActive(false)
             AVAudioSession.sharedInstance().removeObserver(self, forKeyPath: "outputVolume", context: nil)
-        } catch let error as NSError {
-            print("\(error)")
+        } catch  {
+            
         }
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
